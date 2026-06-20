@@ -7,11 +7,14 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.jayanth.jcricket.ui.theme.JcricketTheme
+import com.jayanth.jcricket.ui.viewmodel.MatchViewModel
+import com.jayanth.jcricket.ui.views.HomeScreen
+import com.jayanth.jcricket.ui.views.MatchDetailsScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,28 +23,24 @@ class MainActivity : ComponentActivity() {
         setContent {
             JcricketTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
+                    val matchViewModel: MatchViewModel = viewModel()
+                    val selectedMatch by matchViewModel.selectedMatch.collectAsState()
+
+                    if (selectedMatch == null) {
+                        HomeScreen(
+                            viewModel = matchViewModel,
+                            onMatchClick = { match -> matchViewModel.openMatch(match) },
+                            modifier = Modifier.padding(innerPadding)
+                        )
+                    } else {
+                        MatchDetailsScreen(
+                            viewModel = matchViewModel,
+                            onBack = { matchViewModel.closeMatchDetails() },
+                            modifier = Modifier.padding(innerPadding)
+                        )
+                    }
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    JcricketTheme {
-        Greeting("Android")
     }
 }
