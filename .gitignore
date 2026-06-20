@@ -51,3 +51,8 @@ secrets.properties
 
 # Crashlytics/Google Services secrets
 google-services.json
+
+# Release build folders and signing folders
+/app/release/
+/release/
+
