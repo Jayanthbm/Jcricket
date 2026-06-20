@@ -1,0 +1,53 @@
+# Gradle files
+.gradle/
+build/
+**/build/
+
+# Local configuration file (sdk path, etc)
+local.properties
+local.properties-backup
+gradle.properties.local
+
+# Log/OS Files
+*.log
+.DS_Store
+Thumbs.db
+*.bak
+*.tmp
+
+# Android Studio/IntelliJ generated files and folders
+captures/
+.externalNativeBuild/
+.cxx/
+*.aab
+*.apk
+output-metadata.json
+
+# IntelliJ / Android Studio IDE files
+*.iml
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/gradle.xml
+.idea/assetWizardSettings.xml
+.idea/dictionaries
+.idea/libraries/
+.idea/caches/
+.idea/deploymentTargetSelector.xml
+.idea/deploymentTargetDropDown.xml
+.idea/render.experimental.xml
+.idea/modules.xml
+.idea/misc.xml
+.idea/navEditor.xml
+.idea/vcs.xml
+.idea/shelf/
+
+# Keystores / Secrets (Do not commit signing keys/credentials)
+*.jks
+*.keystore
+*.p12
+*.pem
+*.pkcs12
+secrets.properties
+
+# Crashlytics/Google Services secrets
+google-services.json
