@@ -1,5 +1,6 @@
 # Gradle files
 .gradle/
+.kotlin/
 build/
 **/build/
 
@@ -57,3 +58,4 @@ google-services.json
 /app/release/
 /release/
 
+keystore.properties
