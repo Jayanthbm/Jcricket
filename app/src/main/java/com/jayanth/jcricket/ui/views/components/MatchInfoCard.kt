@@ -86,9 +86,10 @@ fun MatchInfoCard(
                 overflow = TextOverflow.Ellipsis
             )
 
-            if (!matchInfo.matchDesc.isNullOrEmpty()) {
+            val desc = matchInfo.matchDesc
+            if (!desc.isNullOrEmpty()) {
                 Text(
-                    text = matchInfo.matchDesc,
+                    text = desc,
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold,
                     color = TextPrimaryDark,
@@ -143,9 +144,10 @@ fun MatchInfoCard(
                 Row(modifier = Modifier.fillMaxWidth()) {
                     MetaItem(label = "VENUE", value = matchInfo.venueText, modifier = Modifier.weight(1f))
                 }
-                if (!matchInfo.startDateText.isNullOrEmpty()) {
+                val dateText = matchInfo.startDateText
+                if (!dateText.isNullOrEmpty()) {
                     Row(modifier = Modifier.fillMaxWidth()) {
-                        MetaItem(label = "DATE", value = matchInfo.startDateText, modifier = Modifier.weight(1f))
+                        MetaItem(label = "DATE", value = dateText, modifier = Modifier.weight(1f))
                     }
                 }
             }

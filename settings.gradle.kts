@@ -24,3 +24,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "Jcricket"
 include(":app")
+include(":core")
+include(":wear")

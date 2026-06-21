@@ -134,8 +134,9 @@ fun ScoreSummaryCard(
                 if (live.remRunsToWin > 0) {
                     ScoreDetailItem(label = "RUNS TO WIN", value = live.remRunsToWin.toString())
                 }
-                if (!live.partnershipText.isNullOrEmpty() && live.partnershipText != "0 (0)") {
-                    ScoreDetailItem(label = "PARTNERSHIP", value = live.partnershipText)
+                val partnership = live.partnershipText
+                if (!partnership.isNullOrEmpty() && partnership != "0 (0)") {
+                    ScoreDetailItem(label = "PARTNERSHIP", value = partnership)
                 }
             }
 

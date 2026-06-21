@@ -41,7 +41,8 @@ data class MatchDetailsData(
     @SerialName("matchInfo") val matchInfo: MatchInfo = MatchInfo(),
     @SerialName("live") val live: LiveInfo? = null,
     @SerialName("commentary") val commentary: List<CommentaryItem> = emptyList(),
-    @SerialName("lastUpdated") val lastUpdated: Long? = null
+    @SerialName("lastUpdated") val lastUpdated: Long? = null,
+    @SerialName("matchScoreDetails") val matchScoreDetails: MatchScoreDetails? = null
 )
 
 @Serializable
@@ -136,4 +137,24 @@ data class CommentaryItem(
     @SerialName("event") val event: String? = null,
     @SerialName("text") val text: String = "",
     @SerialName("timestamp") val timestamp: Long? = null
+)
+
+@Serializable
+data class MatchScoreDetails(
+    @SerialName("customStatus") val customStatus: String = "",
+    @SerialName("highlightedTeamId") val highlightedTeamId: Int? = null,
+    @SerialName("inningsScoreList") val inningsScoreList: List<InningsScore> = emptyList(),
+    @SerialName("state") val state: String = ""
+)
+
+@Serializable
+data class InningsScore(
+    @SerialName("inningsId") val inningsId: Int = 0,
+    @SerialName("batTeamId") val batTeamId: Int = 0,
+    @SerialName("batTeamName") val batTeamName: String = "",
+    @SerialName("score") val score: Int = 0,
+    @SerialName("wickets") val wickets: Int = 0,
+    @SerialName("overs") val overs: Double = 0.0,
+    @SerialName("isDeclared") val isDeclared: Boolean = false,
+    @SerialName("isFollowOn") val isFollowOn: Boolean = false
 )

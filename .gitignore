@@ -26,6 +26,7 @@ output-metadata.json
 # IntelliJ / Android Studio IDE files
 *.iml
 .idea/workspace.xml
+.idea/appInsightsSettings.xml
 .idea/tasks.xml
 .idea/gradle.xml
 .idea/assetWizardSettings.xml

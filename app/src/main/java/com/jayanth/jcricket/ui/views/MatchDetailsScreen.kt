@@ -54,7 +54,7 @@ import com.jayanth.jcricket.ui.theme.UpcomingColor
 import com.jayanth.jcricket.ui.viewmodel.MatchViewModel
 import com.jayanth.jcricket.ui.views.components.BatterStatsTable
 import com.jayanth.jcricket.ui.views.components.BowlerStatsTable
-import com.jayanth.jcricket.ui.views.components.CommentarySection
+import com.jayanth.jcricket.ui.views.components.FinishedScoreCard
 import com.jayanth.jcricket.ui.views.components.MatchInfoCard
 import com.jayanth.jcricket.ui.views.components.RecentBallsList
 import com.jayanth.jcricket.ui.views.components.ScoreSummaryCard
@@ -273,19 +273,18 @@ fun MatchDetailsScreen(
 
                         // 2. In Progress / Completed Layout: Score Summary at Top
                         if (!isPreview) {
-                            ScoreSummaryCard(live = details.live ?: com.jayanth.jcricket.data.model.LiveInfo(
-                                inningsId = 1,
-                                battingTeam = "",
-                                currentScore = "0/0",
-                                overs = "",
-                                runRate = 0.0
-                            ), status = details.status)
+                            val scoreDetails = details.matchScoreDetails
+                            val live = details.live
+                            if (scoreDetails != null && live == null) {
+                                FinishedScoreCard(scoreDetails = scoreDetails)
+                            } else if (live != null) {
+                                ScoreSummaryCard(live = live, status = details.status)
+                            }
                         }
 
                         // 3. Live Stats (Only during active game states)
-                        if (isInProgress && details.live != null) {
-                            val liveBlock = details.live
-
+                        val liveBlock = details.live
+                        if (isInProgress && liveBlock != null) {
                             RecentBallsList(recentBalls = liveBlock.recentBalls)
 
                             BatterStatsTable(
@@ -305,11 +304,6 @@ fun MatchDetailsScreen(
                                     team2Name = details.matchInfo.team2.shortName
                                 )
                             }
-                        }
-
-                        // 4. Commentary Section (Chronological details for active/finished matches)
-                        if (!isPreview && details.commentary.isNotEmpty()) {
-                            CommentarySection(commentary = details.commentary)
                         }
 
                         // 5. Match Info Card (Rendered at bottom for live & completed matches)

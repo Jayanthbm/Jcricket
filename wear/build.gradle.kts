@@ -1,27 +1,23 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
-    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
-    namespace = "com.jayanth.jcricket"
+    namespace = "com.jayanth.jcricket.wear"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.jayanth.jcricket"
+        applicationId = "com.jayanth.jcricket.wear"
         minSdk = 28
         targetSdk = 36
-        versionCode = 2
-        versionName = "1.1"
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        versionCode = 1
+        versionName = "1.0"
     }
 
     buildTypes {
         release {
             isMinifyEnabled = true
-            isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -38,29 +34,21 @@ android {
 }
 
 dependencies {
+    implementation(project(":core"))
+
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.activity.compose)
-    implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.ui.tooling.preview)
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.lifecycle.runtime.ktx)
-    
-    // Lifecycle ViewModel Compose
     implementation(libs.androidx.lifecycle.viewmodel.compose)
 
-    // Shared Core Module
-    implementation(project(":core"))
+    // Wear OS specific dependencies
+    implementation(libs.androidx.wear)
+    implementation(libs.androidx.wear.compose.material)
+    implementation(libs.androidx.wear.compose.foundation)
+    implementation(libs.androidx.wear.compose.navigation)
+    implementation(libs.google.horologist.layout)
 
-    // Image loading
-    implementation(libs.coil.compose)
-
-    testImplementation(libs.junit)
-    androidTestImplementation(platform(libs.androidx.compose.bom))
-    androidTestImplementation(libs.androidx.compose.ui.test.junit4)
-    androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation(libs.androidx.junit)
-    debugImplementation(libs.androidx.compose.ui.test.manifest)
     debugImplementation(libs.androidx.compose.ui.tooling)
 }
