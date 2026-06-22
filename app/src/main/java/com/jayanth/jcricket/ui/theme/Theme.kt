@@ -32,8 +32,6 @@ fun JcricketTheme(
     if (!view.isInEditMode) {
         SideEffect {
             val window = (view.context as Activity).window
-            window.statusBarColor = BgDark.toArgb()
-            window.navigationBarColor = BgDark.toArgb()
             WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = false
         }
     }

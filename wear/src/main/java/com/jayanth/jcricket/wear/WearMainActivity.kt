@@ -1,49 +1,45 @@
 package com.jayanth.jcricket.wear
 
 import android.os.Bundle
+import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.wear.ambient.AmbientModeSupport
+import androidx.wear.ambient.AmbientLifecycleObserver
 import com.jayanth.jcricket.wear.ui.theme.WearJcricketTheme
 import com.jayanth.jcricket.wear.ui.viewmodel.WearMatchViewModel
 import com.jayanth.jcricket.wear.ui.views.WearHomeScreen
 
-class WearMainActivity : FragmentActivity(), AmbientModeSupport.AmbientCallbackProvider {
+class WearMainActivity : ComponentActivity() {
     private lateinit var matchViewModel: WearMatchViewModel
-    private lateinit var ambientController: AmbientModeSupport.AmbientController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        
-        ambientController = AmbientModeSupport.attach(this)
 
-        setContent {
-            WearJcricketTheme {
-                matchViewModel = viewModel()
-                WearHomeScreen(viewModel = matchViewModel)
-            }
-        }
-    }
-
-    override fun getAmbientCallback(): AmbientModeSupport.AmbientCallback {
-        return object : AmbientModeSupport.AmbientCallback() {
-            override fun onEnterAmbient(ambientDetails: Bundle?) {
-                super.onEnterAmbient(ambientDetails)
+        val callback = object : AmbientLifecycleObserver.AmbientLifecycleCallback {
+            override fun onEnterAmbient(ambientDetails: AmbientLifecycleObserver.AmbientDetails) {
                 if (::matchViewModel.isInitialized) {
                     matchViewModel.setAmbientMode(true)
                 }
             }
 
             override fun onExitAmbient() {
-                super.onExitAmbient()
                 if (::matchViewModel.isInitialized) {
                     matchViewModel.setAmbientMode(false)
                 }
             }
 
             override fun onUpdateAmbient() {
-                super.onUpdateAmbient()
+                // No-op or periodic update if needed
+            }
+        }
+
+        val ambientLifecycleObserver = AmbientLifecycleObserver(this, callback)
+        lifecycle.addObserver(ambientLifecycleObserver)
+
+        setContent {
+            WearJcricketTheme {
+                matchViewModel = viewModel()
+                WearHomeScreen(viewModel = matchViewModel)
             }
         }
     }
